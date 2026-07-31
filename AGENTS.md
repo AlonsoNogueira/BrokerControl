@@ -94,7 +94,7 @@ BrokerControl/
    ```bash
    cp .env.exemple .env
    ```
-2. Gere um segredo JWT seguro:
+2. Gere um segredo JWT seguro: 
    ```bash
    openssl rand -base64 64
    ```
