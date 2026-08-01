@@ -1,6 +1,6 @@
 package io.github.alnszzx.brokercontrol.Application.UseCase.Broker;
 
-import io.github.alnszzx.brokercontrol.Application.Dto.BrokerResponse;
+import io.github.alnszzx.brokercontrol.Application.Dto.BrokerSummaryResponse;
 import io.github.alnszzx.brokercontrol.Application.Dto.CreateBrokerRequest;
 import io.github.alnszzx.brokercontrol.Application.Support.AddressMapper;
 import io.github.alnszzx.brokercontrol.Domain.Entity.Broker;
@@ -21,7 +21,7 @@ public class CreateBrokerUseCase {
     private final BrokerRepository brokerRepository;
 
     @Transactional
-    public BrokerResponse execute(CreateBrokerRequest input) {
+    public BrokerSummaryResponse execute(CreateBrokerRequest input) {
         if (input.name() == null || input.name().isBlank()) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }
@@ -42,6 +42,6 @@ public class CreateBrokerUseCase {
                 .build();
 
         Broker saved = brokerRepository.save(broker);
-        return BrokerResponse.from(saved);
+        return BrokerSummaryResponse.from(saved);
     }
 }

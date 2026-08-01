@@ -1,6 +1,6 @@
 package io.github.alnszzx.brokercontrol.Application.UseCase.Broker;
 
-import io.github.alnszzx.brokercontrol.Application.Dto.BrokerResponse;
+import io.github.alnszzx.brokercontrol.Application.Dto.BrokerSummaryResponse;
 import io.github.alnszzx.brokercontrol.Domain.repository.BrokerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,9 +13,9 @@ public class ListBrokersUseCase {
 
     private final BrokerRepository brokerRepository;
 
-    public List<BrokerResponse> execute() {
+    public List<BrokerSummaryResponse> execute() {
         return brokerRepository.findAll().stream()
-                .map(BrokerResponse::from)
+                .map(BrokerSummaryResponse::from)
                 .toList();
     }
 }

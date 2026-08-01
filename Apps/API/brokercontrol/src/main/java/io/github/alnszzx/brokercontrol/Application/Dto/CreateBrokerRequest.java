@@ -1,9 +1,13 @@
 package io.github.alnszzx.brokercontrol.Application.Dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public record CreateBrokerRequest(
-        String name,
-        String email,
-        String phoneNumber,
-        AddressDto address
+        @NotBlank String name,
+        @NotBlank @Email String email,
+        @NotBlank String phoneNumber,
+        @Valid AddressDto address
 ) {
 }
