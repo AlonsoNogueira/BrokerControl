@@ -1,7 +1,8 @@
 package io.github.alnszzx.brokercontrol.Application.UseCase.Broker;
 
-import io.github.alnszzx.brokercontrol.Application.Dto.BrokerResponse;
+import io.github.alnszzx.brokercontrol.Application.Dto.BrokerSummaryResponse;
 import io.github.alnszzx.brokercontrol.Application.Dto.UpdateBrokerRequest;
+import io.github.alnszzx.brokercontrol.Application.Exception.NotFoundException;
 import io.github.alnszzx.brokercontrol.Application.Support.AddressMapper;
 import io.github.alnszzx.brokercontrol.Domain.Entity.Broker;
 import io.github.alnszzx.brokercontrol.Domain.ValueObject.Email;
@@ -21,9 +22,9 @@ public class UpdateBrokerUseCase {
     private final BrokerRepository brokerRepository;
 
     @Transactional
-    public BrokerResponse execute(UUID id, UpdateBrokerRequest request) {
+    public BrokerSummaryResponse execute(UUID id, UpdateBrokerRequest request) {
         Broker broker = brokerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Corretor não encontrado"));
+                .orElseThrow(() -> new NotFoundException("Corretor não encontrado"));
 
         broker.setName(request.name().trim());
         broker.setEmail(new Email(request.email()));
@@ -31,6 +32,6 @@ public class UpdateBrokerUseCase {
         broker.setAddress(AddressMapper.toAddress(request.address()));
         broker.setUpdatedAt(Instant.now());
 
-        return BrokerResponse.from(brokerRepository.save(broker));
+        return BrokerSummaryResponse.from(brokerRepository.save(broker));
     }
 }
